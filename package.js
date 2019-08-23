@@ -36,7 +36,7 @@ Npm.depends({
 });
 
 Package.onTest(function(api) {
-  api.use('jamielob:reloader', 'client')
+  api.use('flean:reloader', 'client')
 
   api.use(['ecmascript',
            'underscore',
