@@ -4,6 +4,31 @@ Reloader = {
 
   _options: {},
 
+  hideStatusBar() {
+    switch (device.platform.toLowerCase()) {
+      case 'ios':
+        if (window.StatusBar) {
+          StatusBar.show();
+          StatusBar.styleLightContent();
+          StatusBar.backgroundColorByHexString("#252525");
+        }
+        break;
+      case 'android':
+        if (window.StatusBar) {
+          AndroidFullScreen.immersiveMode();
+          StatusBar.show();
+          StatusBar.styleLightContent();
+          StatusBar.backgroundColorByHexString("#252525");
+        }
+        break;
+      case 'amazon-fireos':
+        if (window.StatusBar) {
+          AndroidFullScreen.immersiveMode();
+          StatusBar.hide();
+        }
+    }
+  },
+
   configure(options) {
     check(options, {
       check: Match.Optional(Match.OneOf('everyStart', 'firstStart', false)),
@@ -34,6 +59,7 @@ Reloader = {
     // with the server if we still have a valid cached copy. This doesn't work
     // when the location contains a hash however, because that wouldn't reload
     // the page and just scroll to the hash location instead.
+    WebAppLocalServer.switchToPendingVersion();
     if (window.location.hash || window.location.href.endsWith("#")) {
       window.location.reload();
     } else {
@@ -94,7 +120,9 @@ Reloader = {
 
         launchScreen.release();
         navigator.splashscreen.hide();
-
+        if (Meteor.isCordova) {
+          hideStatusBar();
+        }
       }
 
     }, this._options.checkTimer );

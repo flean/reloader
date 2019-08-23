@@ -1,13 +1,13 @@
 Package.describe({
-  name: 'jamielob:reloader',
-  version: '1.3.0',
-  summary: 'More control over hot code push reloading',
-  git: 'https://github.com/jamielob/reloader/',
+  name: 'flean:reloader',
+  version: '1.3.1',
+  summary: 'Fork of original More control over hot code push reloading',
+  git: 'https://github.com/flean/reloader',
   documentation: 'README.md'
 });
 
 Cordova.depends({
-  'cordova-plugin-splashscreen': '4.1.0'
+  'cordova-plugin-splashscreen': '5.0.2'
 });
 
 Package.onUse(function(api) {
