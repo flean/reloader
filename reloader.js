@@ -4,31 +4,6 @@ Reloader = {
 
   _options: {},
 
-  hideStatusBar() {
-    switch (device.platform.toLowerCase()) {
-      case 'ios':
-        if (window.StatusBar) {
-          StatusBar.show();
-          StatusBar.styleLightContent();
-          StatusBar.backgroundColorByHexString("#252525");
-        }
-        break;
-      case 'android':
-        if (window.StatusBar) {
-          AndroidFullScreen.immersiveMode();
-          StatusBar.show();
-          StatusBar.styleLightContent();
-          StatusBar.backgroundColorByHexString("#252525");
-        }
-        break;
-      case 'amazon-fireos':
-        if (window.StatusBar) {
-          AndroidFullScreen.immersiveMode();
-          StatusBar.hide();
-        }
-    }
-  },
-
   configure(options) {
     check(options, {
       check: Match.Optional(Match.OneOf('everyStart', 'firstStart', false)),
@@ -46,7 +21,6 @@ Reloader = {
   prereload() {
     // Show the splashscreen
     navigator.splashscreen.show();
-
     // Set the refresh flag
     localStorage.setItem('reloaderWasRefreshed', Date.now());
   },
@@ -120,9 +94,6 @@ Reloader = {
 
         launchScreen.release();
         navigator.splashscreen.hide();
-        if (Meteor.isCordova) {
-          hideStatusBar();
-        }
       }
 
     }, this._options.checkTimer );
@@ -177,7 +148,6 @@ Reloader = {
     if (shouldCheck) {
 
       navigator.splashscreen.show();
-
       this._checkForUpdate();
 
       // If we don't need to do an additional check
@@ -245,7 +215,7 @@ document.addEventListener("pause", function() {
 
 
 // Capture the reload
-Reload._onMigrate('jamielob:reloader', function (retry) {
+Reload._onMigrate('flean:reloader', function (retry) {
   return Reloader._onMigrate(retry);
 });
 
