@@ -92,10 +92,7 @@ Reloader = {
         }
 
         launchScreen.release();
-        if (_.has(navigator, "splashscreen")) {
-          navigator.splashscreen.hide();
-        }
-        
+        navigator.splashscreen.hide();
       }
 
     }, this._options.checkTimer );
